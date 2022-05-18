@@ -16,14 +16,18 @@ export default class Game {
     constructor(gameWidth, gameHeight) {
         this.gameWidth = gameWidth;
         this.gameHeight = gameHeight;
+        
         this.gameState = GAMESTATE.MENU;
         this.paddle = new Paddle(this);
         this.ball = new Ball(this);
         this.gameObjects = [];
+        this.lives = 3;
         new InputHandler(this.paddle, this); 
     }
 
-    start() {     
+    start() { 
+        if(this.gameState !== GAMESTATE.MENU) return;
+
         let bricks = buildLevel(this, level1);
         
 
@@ -35,9 +39,12 @@ export default class Game {
     }
 
     update(deltaTime) {
+        if(this.lives === 0) this.gameState = GAMESTATE.GAMEOVER;
+
         if(
             this.gameState === GAMESTATE.PAUSED ||
-            this.gameState === GAMESTATE.MENU
+            this.gameState === GAMESTATE.MENU ||
+            this.gameState === GAMESTATE.GAMEOVER
         )
 
             return;
@@ -71,6 +78,17 @@ export default class Game {
             ctx.fillStyle = "white";
             ctx.textAlign ="center";
             ctx.fillText("Paused", this.gameWidth / 2, this.gameHeight / 2);
+        }
+
+        if(this.gameState === GAMESTATE.GAMEOVER) {
+            ctx.rect(0, 0, this.gameWidth, this.gameHeight);
+            ctx.fillStyle = "rgba(0, 0, 0, 1)";
+            ctx.fill();
+
+            ctx.font = "30px Arial";
+            ctx.fillStyle = "white";
+            ctx.textAlign ="center";
+            ctx.fillText("GAME OVER", this.gameWidth / 2, this.gameHeight / 2);
         }
     }
 

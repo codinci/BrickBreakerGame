@@ -9,9 +9,13 @@ export default class ball {
 
         this.game = game;
 
+        this.reset();
+        this.size = 15;
+    }
+
+    reset() {
         this.position = { x: 10, y: 400};
         this.speed = { x: 2, y: -2};
-        this.size = 15;
     }
 
     draw(ctx) {
@@ -29,8 +33,13 @@ export default class ball {
         }
 
         // checks collision of the ball on the top and bottom
-        if(this.position.y + this.size > this.gameHeight || this.position.y < 0) {
+        if(this.position.y < 0) {
             this.speed.y =- this.speed.y;
+        }
+
+        if(this.position.y + this.size > this.gameHeight){
+            this.game.lives --;
+            this.reset();
         }
 
       
