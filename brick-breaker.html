@@ -5,15 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        #gameScreen {
+        #game_screen {
             border: 1px solid black;
+        }
+
+        img {
+            display: none;
         }
     </style>
     <script type="module" src="/index.js" defer></script>
     <title>Brick Breaker Game</title>
 </head>
 <body>
-    <canvas id="gameScreen" width="800px" height="600px"></canvas>
+    <img id="img_ball" width="15px" height="15px" src= "assets/images/ball.png">
+
+    <canvas id="game_screen" width="800px" height="500px"></canvas>
     
 </body>
 </html>
